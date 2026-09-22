@@ -16,8 +16,13 @@
 #include <stdlib.h>
 #include <moonbit.h>
 
-/* Global debug flag controlled by MoonBit layer (defined in socket.c) */
-extern int moonssh_debug;
+/* Debug flag for OpenSSL FFI traces, controlled by MoonBit layer. */
+static int moonssh_debug = 0;
+
+MOONBIT_FFI_EXPORT
+void moonbitlang_ssh_set_debug(int32_t val) {
+  moonssh_debug = val;
+}
 
 /* Opaque forward declarations */
 typedef struct evp_md_ctx_st  EVP_MD_CTX;

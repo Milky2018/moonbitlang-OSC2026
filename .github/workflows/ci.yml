@@ -18,7 +18,7 @@ jobs:
 
       - name: Setup Moon env
         run: |
-          apt-get update && apt-get install -y gcc libssl-dev
+          sudo apt-get update && sudo apt-get install -y gcc libssl-dev
           curl -fsSL https://cli.moonbitlang.cn/install/unix.sh | bash
           echo "$HOME/.moon/bin" >> $GITHUB_PATH
 
@@ -28,10 +28,9 @@ jobs:
           moon test --enable-coverage
           moon coverage report -f summary
 
-          # # ffi test 存在问题，先注释
-          # echo moon test native
-          # moon test --target native --enable-coverage
-          # moon coverage --target native report -f summary
+          echo moon test native
+          moon test --target native --enable-coverage
+          moon coverage --target-dir _build/native report -f summary
 
       - name: Run ssh-server scripts, start ssh server
         run: |
